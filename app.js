@@ -11,8 +11,12 @@ var mqtt = require('mqtt'),
   client = mqtt.connect('mqtt://' + config.mqtt.host + ':' + config.mqtt.port, config.mqtt.options),
 
   mongodbDeviceUri = config.mongodb.dbConnection + config.mongodb.db,
-  mongooseDeviceUri = uriUtil.formatMongoose(mongodbDeviceUri),
-  deviceConnection = mongoose.createConnection(mongooseDeviceUri, config.mongodb.options),
+  mongooseDeviceUri = uriUtil.formatMongoose(mongodbDeviceUri);
+
+  config.mongodb.options.username = process.env.MQTT_USER_NAME;
+  config.mongodb.options.password = process.env.MQTT_PASSWORD;
+
+  var deviceConnection = mongoose.createConnection(mongooseDeviceUri, config.mongodb.options),
 
   triggers = new Triggers(deviceConnection),
   installations = new Installations(deviceConnection, config.domain + '.installation'),

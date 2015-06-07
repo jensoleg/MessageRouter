@@ -1,7 +1,7 @@
 {
   "domain": "senodio",
   "mqtt": {
-    "host": "mqtt.senodio.com",
+    "host": "mqtt",
     "port": 1883,
     "options": {
       "username": "mqtt@senodio.com/senodio",
