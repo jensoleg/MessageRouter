@@ -1,0 +1,19 @@
+{
+  "name": "messagerouter",
+  "version": "1.0.0",
+  "description": "Handle mqtt events and route to alert destinations",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jens-Ole Graulund",
+  "license": "?",
+  "dependencies": {
+    "devices": "git+https://github.com/jensoleg/devices.git",
+    "lodash": "^3.9.3",
+    "mongodb-uri": "^0.9.7",
+    "mongoose": "^4.0.4",
+    "mqtt": "^1.2.0",
+    "request": "^2.57.0"
+  }
+}

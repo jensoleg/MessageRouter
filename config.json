@@ -1,0 +1,24 @@
+{
+  "domain": "senodio",
+  "mqtt": {
+    "host": "mqtt.senodio.com",
+    "port": 1883,
+    "options": {
+      "username": "mqtt@senodio.com/senodio",
+      "password": "z7senodio"
+    }
+  },
+  "mongodb": {
+    "dbConnection": "mongodb://mqtt:mqtt@ds051841.mongolab.com:51841/",
+    "db": "bobbytech",
+    "verbose": false,
+    "options": {
+      "server": {
+        "socketOptions": {
+          "keepAlive": 1,
+          "connectTimeoutMS": 30000
+        }
+      }
+    }
+  }
+}
