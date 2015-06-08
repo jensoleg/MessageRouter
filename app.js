@@ -17,10 +17,12 @@ config.mongodb.options.username = process.env.MQTT_USER_NAME;
 config.mongodb.options.password = process.env.MQTT_PASSWORD;
 
 var deviceConnection = mongoose.createConnection(mongooseDeviceUri, config.mongodb.options),
-
     triggers = new Triggers(deviceConnection),
     installations = new Installations(deviceConnection, config.domain + '.installation'),
     subscriptions = [];
+
+console.log('alarmrouter started', config);
+
 
 installations.allTrigger(function (error, result) {
     subscriptions = result;
