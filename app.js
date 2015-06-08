@@ -11,13 +11,12 @@ var mqtt = require('mqtt'),
     mongodbDeviceUri = config.mongodb.dbConnection + config.mongodb.db,
     mongooseDeviceUri = uriUtil.formatMongoose(mongodbDeviceUri);
 
-console.log('User: ', process.env.MQTT_USER_NAME);
-console.log('Password: ', process.env.MQTT_PASSWORD);
-
 config.mqtt.options.username = process.env.MQTT_USER_NAME + '/' + config.domain;
 config.mqtt.options.password = process.env.MQTT_PASSWORD;
 
 console.log('MQTT options: ', config.mqtt.options);
+
+console.log('Docker Compose link: ', process.env.MQTT_PORT_1883_TCP_ADDR + ':' + process.env.MQTT_PORT_1883_TCP_PORT);
 
 var client = mqtt.connect('mqtt://' + config.mqtt.host + ':' + config.mqtt.port, config.mqtt.options),
     deviceConnection = mongoose.createConnection(mongooseDeviceUri, config.mongodb.options),
