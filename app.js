@@ -46,6 +46,10 @@ client.on('error', function () {
     console.log('connect failed');
 });
 
+client.on('close', function () {
+    console.log('client disconnetced');
+});
+
 client.on('message', function (topic, message) {
     console.log('Event Published: ' + topic + ' Message :' + message);
     triggers.handle(topic, message);
