@@ -25,6 +25,7 @@ console.log('alarmrouter started', config);
 
 
 installations.allTrigger(function (error, result) {
+    console.log('subscriptions: ', result);
     subscriptions = result;
 });
 
