@@ -8,24 +8,24 @@ var mqtt = require('mqtt'),
     Installations = require('devices'),
     config = require('./config.json'),
 
-    client = mqtt.connect('mqtt://' + config.mqtt.host + ':' + config.mqtt.port, config.mqtt.options),
-
     mongodbDeviceUri = config.mongodb.dbConnection + config.mongodb.db,
     mongooseDeviceUri = uriUtil.formatMongoose(mongodbDeviceUri);
 
 console.log('User: ', process.env.MQTT_USER_NAME);
 console.log('Password: ', process.env.MQTT_PASSWORD);
 
-config.mongodb.options.username = process.env.MQTT_USER_NAME;
-config.mongodb.options.password = process.env.MQTT_PASSWORD;
+config.mqtt.options.username = process.env.MQTT_USER_NAME + '/' + config.domain;
+config.mqtt.options.password = process.env.MQTT_PASSWORD;
 
-var deviceConnection = mongoose.createConnection(mongooseDeviceUri, config.mongodb.options),
+console.log('MQTT options: ', config.mqtt.options);
+
+var client = mqtt.connect('mqtt://' + config.mqtt.host + ':' + config.mqtt.port, config.mqtt.options),
+    deviceConnection = mongoose.createConnection(mongooseDeviceUri, config.mongodb.options),
     triggers = new Triggers(deviceConnection),
     installations = new Installations(deviceConnection, config.domain + '.installation'),
     subscriptions = [];
 
 console.log('alarmrouter started', config);
-
 
 installations.allTrigger(function (error, result) {
     console.log('subscriptions: ', result);
