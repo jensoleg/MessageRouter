@@ -14,6 +14,7 @@ var mqtt = require('mqtt'),
 config.mqtt.options.username = process.env.MQTT_USER_NAME + '/' + config.domain;
 config.mqtt.options.password = process.env.MQTT_PASSWORD;
 
+console.log('environment: ', process.env);
 console.info('config mqtt : ', config.mqtt);
 
 if (process.env.MQTT_PORT_1883_TCP_ADDR) {
