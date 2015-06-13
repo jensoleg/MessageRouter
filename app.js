@@ -14,6 +14,8 @@ var mqtt = require('mqtt'),
 config.mqtt.options.username = process.env.MQTT_USER_NAME + '/' + config.domain;
 config.mqtt.options.password = process.env.MQTT_PASSWORD;
 
+console.info('config mqtt : ', config.mqtt);
+
 if (process.env.MQTT_PORT_1883_TCP_ADDR) {
     config.mqtt.host = process.env.MQTT_PORT_1883_TCP_ADDR;
     config.mqtt.port = process.env.MQTT_PORT_1883_TCP_PORT;
@@ -24,6 +26,8 @@ var client = mqtt.connect('mqtt://' + config.mqtt.host + ':' + config.mqtt.port,
     triggers = new Triggers(deviceConnection),
     installations = new Installations(deviceConnection, config.domain + '.installation'),
     subscriptions = [];
+
+console.info('Start app mqtt : ', config.mqtt);
 
 installations.allTrigger(function (error, result) {
     console.info('subscriptions: ', result);
