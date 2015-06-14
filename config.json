@@ -4,8 +4,8 @@
     "host": "mqtt.senodio.com",
     "port": 1883,
     "options": {
-      "username": "jensole.graulund@senodio.com/senodio",
-      "password": "z7senodio"
+      "username": "",
+      "password": ""
     }
   },
   "mongodb": {

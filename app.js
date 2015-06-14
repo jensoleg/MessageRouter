@@ -11,8 +11,8 @@ var mqtt = require('mqtt'),
     mongodbDeviceUri = config.mongodb.dbConnection + config.mongodb.db,
     mongooseDeviceUri = uriUtil.formatMongoose(mongodbDeviceUri);
 
-//config.mqtt.options.username = process.env.MQTT_USER_NAME + '/' + config.domain;
-//config.mqtt.options.password = process.env.MQTT_PASSWORD;
+config.mqtt.options.username = process.env.MQTT_USER_NAME + '/' + config.domain;
+config.mqtt.options.password = process.env.MQTT_PASSWORD;
 
 
 console.log('environment: ', process.env);
