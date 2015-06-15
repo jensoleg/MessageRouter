@@ -76,9 +76,9 @@ function Triggers(connection, mqttClient) {
                 });
 
                 if (notified) {
-                    mqttClient.publish('/' + domain + '/alarm/' + inst.id + '/' + device.id + '/' + stream, '1' );
+                    mqttClient.publish('/' + domain + '/alarm/' + inst.id + '/' + device.id + '/' + stream, '1' ,{retain: true});
                 } else {
-                    mqttClient.publish('/' + domain + '/alarm/' + inst.id + '/' + device.id + '/' + stream, '0' );
+                    mqttClient.publish('/' + domain + '/alarm/' + inst.id + '/' + device.id + '/' + stream, '0', {retain: true});
                 }
 
             }
