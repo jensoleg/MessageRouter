@@ -21,7 +21,7 @@ if (process.env.MQTT_PORT_1883_TCP_ADDR) {
 
 var client = mqtt.connect('mqtt://' + config.mqtt.host + ':' + config.mqtt.port, config.mqtt.options),
     deviceConnection = mongoose.createConnection(mongooseDeviceUri, config.mongodb.options),
-    triggers = new Triggers(deviceConnection),
+    triggers = new Triggers(deviceConnection, client),
     installations = new Installations(deviceConnection, config.domain + '.installation'),
     subscriptions = [];
 
@@ -34,8 +34,8 @@ installations.allTrigger(function (error, result) {
 
 client.on('connect', function () {
     _.each(subscriptions, function (sub) {
-        client.subscribe('/' + config.domain + '/' + sub.deviceId + '/' + sub.control);
-        console.info('subscribed to : ', '/' + config.domain + '/' + sub.deviceId + '/' + sub.control);
+        client.subscribe('/' + config.domain + '/' + sub.deviceId + '/' + sub.controlId);
+        console.info('subscribed to : ', '/' + config.domain + '/' + sub.deviceId + '/' + sub.controlId);
     });
     console.log('connected');
 });

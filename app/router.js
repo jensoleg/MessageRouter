@@ -11,7 +11,7 @@ var request = require('request'),
         eq: '=='
     };
 
-function Triggers(connection) {
+function Triggers(connection, mqttClient) {
 
     this.handle = function (topic, message) {
         // parse topic
@@ -23,15 +23,21 @@ function Triggers(connection) {
             installation = new Installation(connection, domain + '.installation');
 
         // find device
-        installation.findDevice(deviceId, function (error, device) {
+        installation.findDevice(deviceId, function (error, result) {
+            var inst = result.installation,
+                device = result.device;
+
+
             if (!error && device) {
                 var index = 0,
-                    doActivate;
+                    doActivate,
+                    notified = false;
 
                 /* run through triggers and match stream topic */
                 _.each(device.triggers, function (trigger) {
 
                     index = 0;
+
                     if (trigger.stream_id === stream) {
 
                         _.each(trigger.requests, function (httpRequest) {
@@ -54,10 +60,12 @@ function Triggers(connection) {
                                         }
                                     });
 
+                                    notified = true;
                                 }
                             } else {
                                 installation.updateTriggerValue(device.id, index, undefined, function (error) {
                                 });
+
                             }
 
                             index++;
@@ -66,6 +74,13 @@ function Triggers(connection) {
                     }
 
                 });
+
+                if (notified) {
+                    mqttClient.publish('/' + domain + '/alarm/' + inst.id + '/' + device.id + '/' + stream, '1' );
+                } else {
+                    mqttClient.publish('/' + domain + '/alarm/' + inst.id + '/' + device.id + '/' + stream, '0' );
+                }
+
             }
         });
     };
