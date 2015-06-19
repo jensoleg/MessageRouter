@@ -65,18 +65,16 @@ function Triggers(connection, mqttClient) {
                             } else {
                                 installation.updateTriggerValue(device.id, index, undefined, function (error) {
                                 });
-
                             }
-
-                            index++;
                         });
 
+                        index++;
                     }
 
                 });
 
                 if (notified) {
-                    mqttClient.publish('/' + domain + '/alarm/' + inst.id + '/' + device.id + '/' + stream, '1' ,{retain: true});
+                    mqttClient.publish('/' + domain + '/alarm/' + inst.id + '/' + device.id + '/' + stream, '1', {retain: true});
                 } else {
                     mqttClient.publish('/' + domain + '/alarm/' + inst.id + '/' + device.id + '/' + stream, '0', {retain: true});
                 }
