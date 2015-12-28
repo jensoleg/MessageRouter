@@ -19,6 +19,8 @@ if (process.env.MQTT_PORT_1883_TCP_ADDR) {
     config.mqtt.port = process.env.MQTT_PORT_1883_TCP_PORT;
 }
 
+console.log('Config : ', config);
+
 var client = mqtt.connect('mqtt://' + config.mqtt.host + ':' + config.mqtt.port, config.mqtt.options),
     deviceConnection = mongoose.createConnection(mongooseDeviceUri, config.mongodb.options),
     triggers = new Triggers(deviceConnection, client),
