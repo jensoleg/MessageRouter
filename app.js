@@ -17,7 +17,7 @@ config.mqtt.options.password = process.env.MQTT_PASSWORD;
 // Tutum environment variables - remember to set link alias MQTT-BROKER
 if (process.env.MQTT_BROKER_PORT_1883_TCP_ADDR) {
     config.mqtt.host = process.env.MQTT_BROKER_PORT_1883_TCP_ADDR;
-    config.mqtt.port = process.env.MQTT_BROKER_PORT_1883_TCP_ADDR;
+    config.mqtt.port = process.env.MQTT_BROKER_PORT_1883_TCP_PORT;
 }
 
 console.log('Config : ', config);
