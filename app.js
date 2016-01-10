@@ -30,15 +30,22 @@ var client = mqtt.connect('mqtt://' + config.mqtt.host + ':' + config.mqtt.port,
 
 console.info('Start app mqtt : ', config.mqtt);
 
+
+/*
 installations.allTrigger(function (error, result) {
     console.info('subscriptions: ', result);
     subscriptions = result;
 });
+*/
 
 client.on('connect', function () {
-    _.each(subscriptions, function (sub) {
-        client.subscribe('/' + config.domain + '/' + sub.deviceId + '/' + sub.controlId);
-        console.info('subscribed to : ', '/' + config.domain + '/' + sub.deviceId + '/' + sub.controlId);
+    installations.allTrigger(function (error, result) {
+        console.info('subscriptions: ', result);
+        subscriptions = result;
+        _.each(subscriptions, function (sub) {
+            client.subscribe('/' + config.domain + '/' + sub.deviceId + '/' + sub.controlId);
+            console.info('subscribed to : ', '/' + config.domain + '/' + sub.deviceId + '/' + sub.controlId);
+        });
     });
     console.log('connected');
 });
